@@ -6,6 +6,7 @@ import "./index.css";
 import ErrorPage from "./ErrorPage.tsx";
 import Todo from "./routes/todo/todo.tsx";
 import Calc from "./routes/calc/calc.tsx";
+import Psw from "./routes/psw/psw.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "calc",
         element: <Calc />,
+      },
+      {
+        path: "psw",
+        element: <Psw />,
       },
     ],
   },
