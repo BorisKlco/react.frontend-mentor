@@ -8,12 +8,12 @@ export default function Navbar() {
   return (
     <div className="bg-indigo-950 py-2">
       <nav>
-        <h1 className="flex justify-center text-3xl py-2 font-semibold text-white">
+        <h1 className="flex justify-center text-6xl py-2 font-semibold text-white">
           react.Apps
         </h1>
-        <ul className="flex gap-4 justify-center text-neutral-300">
-          {links.map((link) => (
-            <li>
+        <ul className="flex gap-4 justify-center text-neutral-300 text-2xl">
+          {links.map((link, i) => (
+            <li key={i}>
               <NavLink
                 to={link.to}
                 className={({ isActive, isPending }) =>

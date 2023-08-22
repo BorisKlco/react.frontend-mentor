@@ -1,11 +1,37 @@
+import { useState } from "react";
 import { CgRadioCheck } from "react-icons/cg";
 import { LiaCheckCircle } from "react-icons/lia";
+
+type TodosType = {
+  todo: string;
+  done: boolean;
+}[];
 export default function Todo() {
+  const [todo, addToDo] = useState("");
+  const [tasks, setTasks] = useState<TodosType>([]);
+
+  const handleAddTask = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      setTasks([...tasks, { todo: event.currentTarget.value, done: false }]);
+      addToDo("");
+    }
+  };
+
+  const handleDoneTask = (index: number) => {
+    const updateTask = tasks.map((item, i) => {
+      if (index === i) {
+        return { ...item, done: !item.done };
+      }
+      return item;
+    });
+    setTasks(updateTask);
+  };
+
   return (
     <div className="h-full bg-violet-950 flex justify-center pt-12">
       <div className="p-2 min-w-[20rem] md:min-w-[32rem] flex flex-col gap-4">
         <div className="">
-          <h1 className="font-semibold text-3xl text-white tracking-[0.75rem]">
+          <h1 className="font-semibold text-4xl text-white tracking-[0.75rem]">
             TODO
           </h1>
         </div>
@@ -14,20 +40,27 @@ export default function Todo() {
           <input
             className="w-full bg-slate-900/0 text-gray-300 outline-none"
             type="text"
+            placeholder="Add new task"
+            value={todo}
+            onChange={(e) => addToDo(e.target.value)}
+            onKeyDown={handleAddTask}
           />
         </div>
         <div className="rounded bg-slate-900/60 text-gray-300 drop-shadow-lg">
-          {Array.from({ length: 4 }, (item, i) => (
+          {tasks.map((item, i) => (
             <div
+              onClick={() => handleDoneTask(i)}
               key={i}
-              className="flex items-center gap-2 py-2 border-b-[1px] border-gray-400/20 px-2 transition hover:backdrop-contrast-[1.05]"
+              className={`flex items-center gap-2 py-2 border-b-[1px] border-gray-400/20 px-2 transition hover:backdrop-contrast-[1.05] ${
+                item.done && "line-through"
+              }`}
             >
-              {i % 2 ? (
-                <CgRadioCheck className="opacity-40" size={20} />
-              ) : (
+              {item.done ? (
                 <LiaCheckCircle className="opacity-40" size={20} />
+              ) : (
+                <CgRadioCheck className="opacity-40" size={20} />
               )}
-              <span>Task</span>
+              <span>{item.todo}</span>
             </div>
           ))}
 
