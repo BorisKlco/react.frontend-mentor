@@ -82,33 +82,73 @@ export default function Todo() {
                 </div>
               ))
             : selectTasks
-            ? "True"
-            : "false"}
+            ? tasks.map((item, i) => {
+                if (!item.done) {
+                  return (
+                    <div
+                      onClick={() => handleDoneTask(i)}
+                      key={i}
+                      className={`flex items-center gap-2 py-2 border-b-[1px] border-gray-400/20 px-2 transition hover:backdrop-contrast-[1.05] ${
+                        item.done && "line-through opacity-50 blur-[0.5px]"
+                      }`}
+                    >
+                      {item.done ? (
+                        <LiaCheckCircle size={20} />
+                      ) : (
+                        <CgRadioCheck className="opacity-40" size={20} />
+                      )}
+                      <span>{item.todo}</span>
+                    </div>
+                  );
+                }
+              })
+            : tasks.map((item, i) => {
+                if (item.done) {
+                  return (
+                    <div
+                      onClick={() => handleDoneTask(i)}
+                      key={i}
+                      className={`flex items-center gap-2 py-2 border-b-[1px] border-gray-400/20 px-2 transition hover:backdrop-contrast-[1.05] ${
+                        item.done && "line-through opacity-50 blur-[0.5px]"
+                      }`}
+                    >
+                      {item.done ? (
+                        <LiaCheckCircle size={20} />
+                      ) : (
+                        <CgRadioCheck className="opacity-40" size={20} />
+                      )}
+                      <span>{item.todo}</span>
+                    </div>
+                  );
+                }
+              })}
 
-          <div className="flex justify-between p-2 text-sm text-gray-300/50">
-            <p>{tasks.length} Items</p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setSelectTasks(null)}
-                className={`${selectTasks === null && "text-violet-300"}`}
-              >
-                All
-              </button>
-              <button
-                onClick={() => setSelectTasks(true)}
-                className={`${selectTasks === true && "text-violet-300"}`}
-              >
-                Active
-              </button>
-              <button
-                onClick={() => setSelectTasks(false)}
-                className={`${selectTasks === false && "text-violet-300"}`}
-              >
-                Completed
-              </button>
+          {tasks.length ? (
+            <div className="flex justify-between p-2 text-sm text-gray-300/50">
+              <p>{tasks.length} Items</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setSelectTasks(null)}
+                  className={`${selectTasks === null && "text-violet-300"}`}
+                >
+                  All
+                </button>
+                <button
+                  onClick={() => setSelectTasks(true)}
+                  className={`${selectTasks === true && "text-violet-300"}`}
+                >
+                  Active
+                </button>
+                <button
+                  onClick={() => setSelectTasks(false)}
+                  className={`${selectTasks === false && "text-violet-300"}`}
+                >
+                  Completed
+                </button>
+              </div>
+              <button onClick={() => setTasks([])}>Clear</button>
             </div>
-            <button onClick={() => setTasks([])}>Clear</button>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>
