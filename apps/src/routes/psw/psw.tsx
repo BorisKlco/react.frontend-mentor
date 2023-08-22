@@ -1,5 +1,6 @@
 import { MdContentCopy } from "react-icons/md";
 import { useState } from "react";
+import Checkbox from "./checkbox";
 export default function psw() {
   const [psw, setPsw] = useState("ZKdi!nJ7%U^PZM");
   const [len, setLen] = useState(8);
@@ -21,7 +22,7 @@ export default function psw() {
             <MdContentCopy />
           </button>
         </div>
-        <div className="text-white px-6 py-4 bg-gray-800/80">
+        <div className="text-white px-6 py-4 bg-gray-800/80 select-none">
           <div className="flex items-center justify-between">
             <p className="text-xl">Character length</p>
             <span className="text-violet-400 text-2xl">{len}</span>
@@ -35,45 +36,18 @@ export default function psw() {
               value={len}
               onChange={(e) => setLen(+e.target.value)}
             />
-            <span className="flex items-center gap-3 text-md">
-              <div className="ring-2 ring-violet-400 h-5">
-                <input
-                  className="accent-black opacity-40 w-5 h-5"
-                  type="checkbox"
-                />
-              </div>
-              Include Uppercase
-            </span>
-            <span className="flex items-center gap-3 text-md">
-              <div className="ring-2 ring-violet-400 h-5">
-                <input
-                  className="accent-black opacity-40 w-5 h-5"
-                  type="checkbox"
-                />
-              </div>
-              Include Lowercase
-            </span>
-            <span className="flex items-center gap-3 text-md">
-              <div className="ring-2 ring-violet-400 h-5">
-                <input
-                  className="accent-black opacity-40 w-5 h-5"
-                  type="checkbox"
-                />
-              </div>
-              Include Numbers
-            </span>
-            <span className="flex items-center gap-3 text-md">
-              <div className="ring-2 ring-violet-400 h-5">
-                <input
-                  className="accent-black opacity-40 w-5 h-5"
-                  type="checkbox"
-                />
-              </div>
-              Include Symbols
-            </span>
+            <Checkbox text="Include Uppercase" />
+            <Checkbox text="Include Lowercase" />
+            <Checkbox text="Include Numbers" />
+            <Checkbox text="Include Symbols" />
           </div>
-          <div>Text</div>
-          <button>Generate</button>
+          <div className="flex justify-between w-full px-6 py-4 mt-6 bg-slate-900">
+            <h1 className="text-gray-400">STRENGTH</h1>
+            <span>||||</span>
+          </div>
+          <button className="w-full text-slate-950 font-bold py-4 mt-4 text-center bg-violet-400 transition hover:bg-violet-500">
+            GENERATE
+          </button>
         </div>
       </div>
     </div>
