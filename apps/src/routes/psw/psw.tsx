@@ -16,14 +16,24 @@ export default function PswGenerator() {
     sym: true,
   });
 
+  //Password Strength counter
+  const str = Object.keys(sett).filter((item) => sett[item] == true);
+  const strDisplay = [];
+  for (let i = 0; i < 4; i++) {
+    if (str.length > i) {
+      strDisplay.push(<p className="text-violet-400">|</p>);
+    } else {
+      strDisplay.push(<p className="text-gray-600">|</p>);
+    }
+  }
+
   const handleCopyPsw = () => {
     navigator.clipboard.writeText(psw);
   };
 
   const handleGenerate = () => {
     //User choice control
-    const empty = Object.keys(sett).filter((item) => sett[item] != false);
-    if (!empty.length) {
+    if (!str.length) {
       return setPsw("Pick Setting");
     }
     //Generate password
@@ -63,7 +73,9 @@ export default function PswGenerator() {
         <div className="text-white px-6 py-4 bg-gray-800/80 select-none">
           <div className="flex items-center justify-between">
             <p className="text-xl">Character length</p>
-            <span className="text-violet-400 text-2xl">{userLen}</span>
+            <span className="text-violet-400 text-2xl font-bold">
+              {userLen}
+            </span>
           </div>
           <div className="flex flex-col gap-4 items-start mt-4">
             <input
@@ -101,7 +113,7 @@ export default function PswGenerator() {
           </div>
           <div className="flex justify-between w-full px-6 py-4 mt-6 bg-slate-900">
             <h1 className="text-gray-400">STRENGTH</h1>
-            <span>||||</span>
+            <span className="flex items-center font-bold">{strDisplay}</span>
           </div>
           <button
             onClick={handleGenerate}
