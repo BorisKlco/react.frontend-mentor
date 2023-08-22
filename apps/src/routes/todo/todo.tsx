@@ -38,7 +38,7 @@ export default function Todo() {
 
   return (
     <div className="h-full bg-violet-950 flex justify-center pt-12">
-      <div className="p-2 min-w-[20rem] md:min-w-[32rem] flex flex-col gap-4">
+      <div className="p-2 min-w-[20rem] sm:w-[32rem] flex flex-col gap-4">
         <div className="flex justify-between">
           <h1 className="font-semibold text-4xl text-white tracking-[0.75rem]">
             TODO
@@ -143,7 +143,7 @@ export default function Todo() {
                   onClick={() => setSelectTasks(false)}
                   className={`${selectTasks === false && "text-violet-300"}`}
                 >
-                  Completed
+                  Done
                 </button>
               </div>
               <button onClick={() => setTasks([])}>Clear</button>

@@ -1,4 +1,4 @@
-# frontendMentors templates 
+# frontendMentors templates
 
 - apps
-  - multiple simple apps, calc, todo, countdown, psw generator
+  - Aimple apps, calc, todo, countdown, psw generator

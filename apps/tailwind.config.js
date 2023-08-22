@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         poppins: ["Poppins"],
+        ibm: ["IBM Plex Mono"],
       },
     },
   },

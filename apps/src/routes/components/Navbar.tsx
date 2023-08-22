@@ -6,12 +6,12 @@ export default function Navbar() {
     { to: "psw", name: "Psw Generator" },
   ];
   return (
-    <div className="bg-indigo-950 py-2">
+    <div className="bg-indigo-950 py-2 border-b border-gray-400">
       <nav>
         <h1 className="flex justify-center text-6xl py-2 font-semibold text-white">
           react.Apps
         </h1>
-        <ul className="flex gap-4 justify-center text-neutral-300 text-2xl">
+        <ul className="flex flex-col items-center sm:flex-row gap-4 justify-center text-neutral-300 text-2xl">
           {links.map((link, i) => (
             <li key={i}>
               <NavLink
