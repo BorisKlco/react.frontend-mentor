@@ -18,6 +18,7 @@ export default function PswGenerator() {
 
   useEffect(() => {
     handleGenerate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Password Strength counter
