@@ -46,7 +46,7 @@ export default function Dictionary() {
 
   return (
     <div className="h-full bg-gray-200 flex flex-col items-center pt-12 px-2">
-      <div className="p-4 w-full sm:w-[80%] lg:w-[60%]">
+      <div className="p-4 w-full sm:w-[80%] lg:w-[60%] 2xl:w-[40%]">
         <div id="header" className="flex items-end gap-2 mb-4 px-2">
           <GiBookmark size={48} />
           <h1 className="text-3xl font-bold font-handwriting"> Dictionary</h1>
