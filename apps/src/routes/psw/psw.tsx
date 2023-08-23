@@ -1,5 +1,5 @@
 import { MdContentCopy } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Checkbox from "./checkbox";
 
 export type SettingType = {
@@ -8,13 +8,17 @@ export type SettingType = {
 
 export default function PswGenerator() {
   const [psw, setPsw] = useState("");
-  const [userLen, setLen] = useState(8);
+  const [userLen, setLen] = useState(12);
   const [sett, setSett] = useState<SettingType>({
     up: true,
     low: true,
     num: true,
     sym: true,
   });
+
+  useEffect(() => {
+    handleGenerate();
+  }, []);
 
   //Password Strength counter
   const str = Object.keys(sett).filter((item) => sett[item] == true);
