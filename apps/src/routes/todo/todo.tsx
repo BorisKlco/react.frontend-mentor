@@ -34,8 +34,6 @@ export default function Todo() {
     setTasks(reverseList);
   };
 
-  console.log(tasks);
-
   return (
     <div className="h-full bg-violet-950 flex justify-center pt-12">
       <div className="p-2 min-w-[20rem] sm:w-[32rem] flex flex-col gap-4">

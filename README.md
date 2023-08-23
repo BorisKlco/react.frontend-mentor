@@ -1,4 +1,4 @@
 # frontendMentors templates
 
 - apps
-  - Aimple apps, calc, todo, countdown, psw generator
+  - Todo List, Dictionary, Password Generator

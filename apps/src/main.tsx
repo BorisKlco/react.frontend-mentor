@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App.tsx";
 import "./index.css";
 import ErrorPage from "./ErrorPage.tsx";
 import Todo from "./routes/todo/todo.tsx";
-import Calc from "./routes/calc/calc.tsx";
 import Psw from "./routes/psw/psw.tsx";
+import Dictionary from "./routes/dictionary/dictionary.tsx";
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -19,8 +22,8 @@ const router = createBrowserRouter([
         element: <Todo />,
       },
       {
-        path: "calc",
-        element: <Calc />,
+        path: "dictionary",
+        element: <Dictionary />,
       },
       {
         path: "psw",
@@ -32,6 +35,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );
