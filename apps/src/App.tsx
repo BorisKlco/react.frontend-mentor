@@ -3,12 +3,12 @@ import Navbar from "./routes/components/Navbar";
 
 function MainPage() {
   return (
-    <div className="h-full bg-violet-950 flex justify-center pt-12">
-      <div className="flex flex-col mx-6 w-full lg:w-4/5 lg:px-0 ">
+    <div className="bg-violet-950 flex justify-center h-full overflow-auto py-8 px-2">
+      <div className="">
         <h1 className="text-center font-semibold text-white text-4xl">
           Apps Idea
         </h1>
-        <div className="w-5/6 sm:w-4/5 h-full mt-8 mx-auto text-white text-xl text-center leading-8">
+        <div className="text-white text-xl text-center leading-8">
           <p className="">
             <a
               className="font-semibold underline text-violet-300"
@@ -24,12 +24,12 @@ function MainPage() {
             The main purpose is to teach students CSS/JS and correct front-end
             practices.
           </p>
-          <p className="mt-12">
+          <p className="pt-6">
             I picked a few challenges that were fitted for a single-page app and
             reproduced them in React/Tailwind.
           </p>
 
-          <div className="mt-12">
+          <div className="pt-12">
             <h1 className="text-left text-2xl font-semibold underline text-violet-300">
               <Link to={"todo"}>Todo List:</Link>
             </h1>
@@ -41,7 +41,7 @@ function MainPage() {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="pt-8">
             <h1 className="text-left text-2xl font-semibold underline text-violet-300">
               <Link to={"dictionary"}>Dictionary:</Link>
             </h1>
@@ -52,7 +52,7 @@ function MainPage() {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="py-8">
             <h1 className="text-left text-2xl font-semibold underline text-violet-300">
               <Link to={"psw"}>Psw Generator:</Link>
             </h1>
@@ -73,8 +73,7 @@ function App() {
   return (
     <>
       <Navbar />
-      {route.pathname == "/" ? <MainPage /> : null}
-      <Outlet />
+      {route.pathname == "/" ? <MainPage /> : <Outlet />}
     </>
   );
 }
