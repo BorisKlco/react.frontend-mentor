@@ -53,7 +53,7 @@ export default function Todo() {
           )}
         </div>
         <div className="flex items-center rounded bg-slate-900/60 text-white pl-2 py-2 gap-2 drop-shadow-lg">
-          <CgRadioCheck className="opacity-40" size={20} />
+          <CgRadioCheck className="opacity-40 min-w-[1.5rem]" size={20} />
           <input
             className="w-full bg-slate-900/0 text-gray-300 outline-none"
             type="text"
@@ -74,9 +74,12 @@ export default function Todo() {
                   }`}
                 >
                   {item.done ? (
-                    <LiaCheckCircle size={20} />
+                    <LiaCheckCircle className="min-w-[1.5rem]" size={20} />
                   ) : (
-                    <CgRadioCheck className="opacity-40" size={20} />
+                    <CgRadioCheck
+                      className="opacity-40 min-w-[1.5rem]"
+                      size={20}
+                    />
                   )}
                   <span>{item.todo}</span>
                 </div>
@@ -93,9 +96,12 @@ export default function Todo() {
                       }`}
                     >
                       {item.done ? (
-                        <LiaCheckCircle size={20} />
+                        <LiaCheckCircle className="min-w-[1.5rem]" size={20} />
                       ) : (
-                        <CgRadioCheck className="opacity-40" size={20} />
+                        <CgRadioCheck
+                          className="opacity-40 min-w-[1.5rem]"
+                          size={20}
+                        />
                       )}
                       <span>{item.todo}</span>
                     </div>
@@ -113,9 +119,12 @@ export default function Todo() {
                       }`}
                     >
                       {item.done ? (
-                        <LiaCheckCircle size={20} />
+                        <LiaCheckCircle className="min-w-[1.5rem]" size={20} />
                       ) : (
-                        <CgRadioCheck className="opacity-40" size={20} />
+                        <CgRadioCheck
+                          className="opacity-40 min-w-[1.5rem]"
+                          size={20}
+                        />
                       )}
                       <span>{item.todo}</span>
                     </div>
