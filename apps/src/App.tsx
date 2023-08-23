@@ -17,12 +17,16 @@ function MainPage() {
             >
               FrontendMentor
             </a>{" "}
-            is learnign platform with examples, solution and base templates.
+            is a learning platform that provides examples, solutions, and
+            templates.
           </p>
-          <p>Main purpose is learn student css/js and front-end practics...</p>
+          <p>
+            The main purpose is to teach students CSS/JS and correct front-end
+            practices.
+          </p>
           <p className="mt-12">
-            I picked few challenges fitted for single page app and reproduced
-            tham in React/Tailwind
+            I picked a few challenges that were fitted for a single-page app and
+            reproduced them in React/Tailwind.
           </p>
 
           <div className="mt-12">
