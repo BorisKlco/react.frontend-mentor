@@ -25,9 +25,17 @@ export default function PswGenerator() {
   const strDisplay = [];
   for (let i = 0; i < 4; i++) {
     if (str.length > i) {
-      strDisplay.push(<p className="text-violet-400">|</p>);
+      strDisplay.push(
+        <p key={i} className="text-violet-400">
+          |
+        </p>
+      );
     } else {
-      strDisplay.push(<p className="text-gray-600">|</p>);
+      strDisplay.push(
+        <p key={i} className="text-gray-600">
+          |
+        </p>
+      );
     }
   }
 

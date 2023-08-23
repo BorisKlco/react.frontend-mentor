@@ -3,13 +3,9 @@ export async function getWord({
 }: {
   queryKey: string[] | undefined;
 }) {
-  console.log("fetching", queryKey);
   if (!queryKey) return [];
-  console.log("qKey not empty", queryKey);
   const word = queryKey[1];
-  console.log("destructing Word", queryKey);
   if (!word.length) return [];
-  console.log("Word is not empty", queryKey);
 
   const res = await fetch(
     `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
