@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins"],
         ibm: ["IBM Plex Mono"],
+        handwriting: ["Borel"],
       },
     },
   },
