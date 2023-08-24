@@ -1,4 +1,4 @@
 # frontendMentors templates
 
-- apps
-  - Todo List, Dictionary, Password Generator
+- react.Apps
+  - Todo List, Dictionary, Password Generator [react-apps.tricksofthe.trade](https://react-apps.tricksofthe.trade/)
