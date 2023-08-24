@@ -43,11 +43,14 @@ export default function Word({ props }: WordProps) {
 
       <div className="flex px-2 font-serif mt-6">
         <h2 className="opacity-60 pb-4">Synonyms</h2>
-        <div className="pl-6 flex gap-2">
+        <div className="pl-6 flex flex-wrap ">
           {props.meanings.map((type, i) => {
             if (type.partOfSpeech === "noun") {
               return type.synonyms.map((item) => (
-                <h3 key={i} className="text-violet-600 font-bold">
+                <h3
+                  key={i}
+                  className="text-violet-600 font-bold px-1 break-normal"
+                >
                   {item}
                 </h3>
               ));
