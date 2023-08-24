@@ -28,14 +28,6 @@ export default function Dictionary() {
     enabled: !!word,
   });
 
-  if (fetchWord.isFetching) {
-    return (
-      <div className="h-full bg-gray-200 grid place-content-center">
-        <CgSpinnerAlt className="animate-spin" size={64} />
-      </div>
-    );
-  }
-
   const res = fetchWord?.data ?? [];
 
   const handleFetch = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -45,7 +37,7 @@ export default function Dictionary() {
   };
 
   return (
-    <div className="h-full bg-gray-200 flex flex-col items-center pt-12 px-2">
+    <div className="bg-gray-200 flex flex-col items-center pt-12 px-2 overflow-auto h-full">
       <div className="p-4 w-full sm:w-[80%] lg:w-[60%] 2xl:w-[40%]">
         <div id="header" className="flex items-end gap-2 mb-4 px-2">
           <GiBookmark size={48} />
@@ -68,6 +60,12 @@ export default function Dictionary() {
             <GiMagnifyingGlass size={24} />
           </button>
         </div>
+        {/* Loading Status */}
+        {fetchWord.isFetching ? (
+          <div className="h-full grid place-content-center">
+            <CgSpinnerAlt className="animate-spin" size={64} />
+          </div>
+        ) : null}
         {/* Word, pronunciation */}
         {res.map((item: DictType, i: number) => {
           if (i < 1) {
