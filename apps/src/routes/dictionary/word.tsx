@@ -29,10 +29,10 @@ export default function Word({ props }: WordProps) {
       <div className="px-2 font-serif mt-6">
         <h2 className="opacity-60 pb-4">Meaning</h2>
         <ul className="list-disc list-inside pl-4">
-          {props.meanings.map((type, i) => {
+          {props.meanings.map((type) => {
             if (type.partOfSpeech === "noun") {
               return type.definitions.map((item) => (
-                <li key={i} className="my-2">
+                <li key={item.definition ?? Math.random()} className="my-2">
                   {item.definition}
                 </li>
               ));
@@ -44,11 +44,11 @@ export default function Word({ props }: WordProps) {
       <div className="flex px-2 font-serif mt-6">
         <h2 className="opacity-60 pb-4">Synonyms</h2>
         <div className="pl-6 flex flex-wrap ">
-          {props.meanings.map((type, i) => {
+          {props.meanings.map((type) => {
             if (type.partOfSpeech === "noun") {
               return type.synonyms.map((item) => (
                 <h3
-                  key={i}
+                  key={item ?? Math.random()}
                   className="text-violet-600 font-bold px-1 break-normal"
                 >
                   {item}
@@ -68,10 +68,10 @@ export default function Word({ props }: WordProps) {
       <div className="px-2 font-serif mt-6">
         <h2 className="opacity-60 pb-4">Meaning</h2>
         <ul className="list-disc list-inside pl-4">
-          {props.meanings.map((type, i) => {
+          {props.meanings.map((type) => {
             if (type.partOfSpeech === "verb") {
               return type.definitions.map((item) => (
-                <div key={i}>
+                <div key={item.definition ?? Math.random()}>
                   <li className="my-2">{item.definition}</li>
                   <p className="opacity-75 italic pl-5">"{item.example}"</p>
                 </div>
