@@ -7,7 +7,7 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 
 export default function Navbar({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-full bg-slate-950">
+    <div className="flex h-full bg-slate-950 overflow-auto">
       <div className="flex flex-col w-full xl:flex-row">
         <nav className="flex xl:flex-col mx-4 md:mx-8 px-4 md:px-6 py-4 my-8 rounded-2xl justify-between xl:justify-start bg-slate-900 xl:gap-8">
           <p className="text-red-800">
@@ -23,11 +23,13 @@ export default function Navbar({ children }: { children: ReactNode }) {
             <img
               src="https://robohash.org/SCJ.png?set=set4"
               alt="profile"
-              className="m-auto object-center bg-white transition grayscale-[50%] group-hover:grayscale-0"
+              className="m-auto object-center  transition grayscale-[50%] group-hover:grayscale-0"
             />
           </div>
         </nav>
-        <main className="text-white">{children}</main>
+        <main className="h-screen py-8 mx-4 md:mx-0 overflow-auto my-auto">
+          {children}
+        </main>
       </div>
     </div>
   );
