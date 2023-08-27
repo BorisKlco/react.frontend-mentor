@@ -50,13 +50,13 @@ export default function Index() {
         {data.results.map((movie: MovieType) => (
           <div
             key={movie.id}
-            className="group relative block overflow-hidden rounded-md"
+            className="group relative overflow-hidden rounded-md"
           >
             <div className="group/fav absolute right-5 top-5 rounded-full h-16 aspect-square bg-black/40 z-10 grid place-content-center">
               <BsFillBookmarkHeartFill className="h-8 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6" />
             </div>
             <img
-              className="h-128 object-cover transition group-hover:scale-[1.02] contrast-[0.95] group-hover:contrast-[1.02]"
+              className="max-[400px]:h-48 max-[929px]:h-64 min-[930px]:h-[26rem] object-cover transition group-hover:scale-[1.02] contrast-[0.95] group-hover:contrast-[1.02]"
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt=""
             />
