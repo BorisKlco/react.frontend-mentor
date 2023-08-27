@@ -4,6 +4,7 @@ import { TiThSmall } from "react-icons/ti";
 import { TbMovie } from "react-icons/tb";
 import { PiTelevisionBold } from "react-icons/pi";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
+import { NavLink } from "@remix-run/react";
 
 export default function Navbar({ children }: { children: ReactNode }) {
   return (
@@ -14,9 +15,27 @@ export default function Navbar({ children }: { children: ReactNode }) {
             <RiMovie2Fill className="h-[54px] w-full xl:mb-6" />
           </p>
           <div className="flex xl:flex-col xl:gap-6 gap-3 items-center text-white h-full xl:h-auto ">
-            <TiThSmall className="h-full w-[32px] hover:text-green-400 transition hover:scale-125" />
-            <TbMovie className="h-full w-[32px] hover:text-red-600 transition hover:scale-125" />
-            <PiTelevisionBold className="h-full w-[32px] hover:text-pink-600 transition hover:scale-125" />
+            <NavLink
+              to="/"
+              prefetch="intent"
+              className={({ isActive }) => (isActive ? "text-green-400" : "")}
+            >
+              <TiThSmall className="h-full w-[32px] hover:text-green-400 transition hover:scale-125" />
+            </NavLink>
+            <NavLink
+              prefetch="intent"
+              to="/movies"
+              className={({ isActive }) => (isActive ? "text-red-600" : "")}
+            >
+              <TbMovie className="h-full w-[32px] hover:text-red-600 transition hover:scale-125" />
+            </NavLink>
+            <NavLink
+              to="/tv"
+              prefetch="intent"
+              className={({ isActive }) => (isActive ? "text-pink-600" : "")}
+            >
+              <PiTelevisionBold className="h-full w-[32px] hover:text-pink-600 transition hover:scale-125" />
+            </NavLink>
             <BsFillBookmarkHeartFill className="h-full w-[32px] hover:text-sky-600 transition hover:scale-125" />
           </div>
           <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">

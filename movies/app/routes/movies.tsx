@@ -28,7 +28,7 @@ interface MovieType {
 
 export async function loader({}: LoaderArgs) {
   const url = await fetch(
-    "https://api.themoviedb.org/3/trending/all/day?language=en-US",
+    "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
     {
       headers: {
         accept: "application/json",
