@@ -27,7 +27,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
             />
           </div>
         </nav>
-        <main className="h-screen py-8 mx-4 md:mx-0 overflow-auto my-auto">
+        <main className="h-screen py-8 mx-4 xl:mx-0 overflow-auto my-auto">
           {children}
         </main>
       </div>

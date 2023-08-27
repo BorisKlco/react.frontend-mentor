@@ -1,5 +1,6 @@
 import { LoaderArgs, V2_MetaFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { BsFillBookmarkHeartFill } from "react-icons/bs";
 
 export const meta: V2_MetaFunction = () => {
   return [
@@ -45,11 +46,17 @@ export default function Index() {
   console.log(data);
   return (
     <>
-      <div className="flex flex-wrap gap-8 w-full justify-center">
+      <div className="flex flex-wrap gap-8 justify-center">
         {data.results.map((movie: MovieType) => (
-          <div key={movie.id} className="group relativ block overflow-hidden">
+          <div
+            key={movie.id}
+            className="group relative block overflow-hidden rounded-md"
+          >
+            <div className="group/fav absolute right-5 top-5 rounded-full h-16 aspect-square bg-black/40 z-10 grid place-content-center">
+              <BsFillBookmarkHeartFill className="h-8 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6" />
+            </div>
             <img
-              className="h-128 object-cover transition group-hover:scale-[1.02]  contrast-[0.90] group-hover:contrast-[1.05] rounded-md"
+              className="h-128 object-cover transition group-hover:scale-[1.02] contrast-[0.95] group-hover:contrast-[1.02]"
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt=""
             />
