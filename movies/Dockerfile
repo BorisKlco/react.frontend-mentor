@@ -2,7 +2,7 @@ FROM node:16-alpine
 
 WORKDIR /app
 
-COPY paackage.json .
+COPY package.json .
 
 RUN npm install
 
@@ -14,4 +14,4 @@ ENV NODE_ENV=production
 
 EXPOSE 3000
 
-CMD ["npm", “run” ,"start"]
+CMD [ "npm", "run", "start" ]

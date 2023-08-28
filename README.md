@@ -6,5 +6,5 @@
 
 - remix.Movies
   - Movies Gallery, bookmarks, search 
-    - Demo: [WoOking on it- fly.dev](https://dry-pine-5920.fly.dev/)
+    - Demo: [movies.tricksofthe.trade](https://movies.tricksofthe.trade/)
 
