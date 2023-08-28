@@ -11,7 +11,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-full bg-slate-950 overflow-auto">
       <div className="flex flex-col w-full xl:flex-row">
-        <nav className="flex xl:flex-col mx-4 md:mx-8 px-4 md:px-6 py-4 my-8 rounded-2xl justify-between xl:justify-start bg-slate-900 xl:gap-8">
+        <nav className="flex xl:flex-col mx-4 md:mx-8 px-4 md:px-6 py-4 my-4 xl:my-8 rounded-2xl justify-between xl:justify-start bg-slate-900 xl:gap-8">
           <p className="text-red-800">
             <RiMovie2Fill className="h-[54px] w-full xl:mb-6" />
           </p>
@@ -23,14 +23,14 @@ export default function Navbar({ children }: { children: ReactNode }) {
                 }`}
               />
             </Link>
-            <Link to="?type=movie">
+            <Link to="/?type=movie">
               <TbMovie
                 className={`h-full w-[32px] hover:text-red-600 transition hover:scale-125 ${
                   searchParams[0].get("type") == "movie" && "text-red-600"
                 }`}
               />
             </Link>
-            <Link to="?type=tv">
+            <Link to="/?type=tv">
               <PiTelevisionBold
                 className={`h-full w-[32px] hover:text-pink-600 transition hover:scale-125 ${
                   searchParams[0].get("type") == "tv" && "text-pink-600"
@@ -47,7 +47,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
             />
           </div>
         </nav>
-        <main className="h-screen py-8 mx-4 xl:mx-0 overflow-auto my-auto w-full">
+        <main className="h-screen py-6 overflow-auto my-auto w-full">
           {children}
         </main>
       </div>

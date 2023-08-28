@@ -1,5 +1,6 @@
 import { V2_MetaFunction, LoaderArgs, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { MovieItemProp, TvItemProp } from "~/helpers";
 
 export async function loader({ request, params }: LoaderArgs) {
   console.log("det", request, "params:", params);
@@ -52,7 +53,7 @@ export const meta: V2_MetaFunction = ({ data }: MetaDataType) => {
 };
 
 export default function Details() {
-  const data = useLoaderData();
+  const data: MovieItemProp | TvItemProp = useLoaderData();
   console.log(data);
 
   if (!data) {
@@ -66,5 +67,21 @@ export default function Details() {
       </>
     );
   }
-  return "Details";
+
+  return (
+    <>
+      <div className="w-full px-4 xl:py-2 h-full mx-auto ">
+        <div
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/w500/${data.backdrop_path})`,
+          }}
+          className={`bg-cover bg-center bg-no-repeat h-full w-full rounded-2xl overflow-hidden`}
+        >
+          <div className="w-full h-full backdrop-blur-sm backdrop-brightness-75 backdrop-grayscale-[.5]">
+            <h1 className="text-white text-4xl">123</h1>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
