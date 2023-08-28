@@ -1,5 +1,6 @@
 import { V2_MetaFunction, LoaderArgs, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData, useLocation } from "@remix-run/react";
+import DetailItem from "~/components/detailItem";
 import { MovieItemProp, TvItemProp } from "~/helpers";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -53,8 +54,9 @@ export const meta: V2_MetaFunction = ({ data }: MetaDataType) => {
 };
 
 export default function Details() {
-  const data: MovieItemProp | TvItemProp = useLoaderData();
-  console.log(data);
+  const type = useLocation();
+  const data = useLoaderData();
+  console.log(data, type);
 
   if (!data) {
     return (
@@ -70,18 +72,11 @@ export default function Details() {
 
   return (
     <>
-      <div className="w-full px-4 xl:py-2 h-full mx-auto ">
-        <div
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/w500/${data.backdrop_path})`,
-          }}
-          className={`bg-cover bg-center bg-no-repeat h-full w-full rounded-2xl overflow-hidden`}
-        >
-          <div className="w-full h-full backdrop-blur-sm backdrop-brightness-75 backdrop-grayscale-[.5]">
-            <h1 className="text-white text-4xl">123</h1>
-          </div>
-        </div>
-      </div>
+      {type.search === "movie" ? (
+        <DetailItem item={data} type="movie" />
+      ) : type.search === "tv" ? (
+        <DetailItem item={data} type="tv" />
+      ) : null}
     </>
   );
 }
