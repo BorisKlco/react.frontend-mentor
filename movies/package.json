@@ -19,7 +19,6 @@
     "react-icons": "^4.10.1"
   },
   "devDependencies": {
-    "@flydotio/dockerfile": "^0.4.8",
     "@remix-run/dev": "^1.19.3",
     "@remix-run/eslint-config": "^1.19.3",
     "@types/react": "^18.0.35",
