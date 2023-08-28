@@ -1,7 +1,7 @@
 import { V2_MetaFunction, LoaderArgs, json } from "@remix-run/node";
-import { Link, useLoaderData, useLocation } from "@remix-run/react";
-import DetailItem from "~/components/detailItem";
-import { MovieItemProp, TvItemProp } from "~/helpers";
+import { Link, useLoaderData } from "@remix-run/react";
+import MovieItem from "~/components/movieDetail";
+import TvItem from "~/components/tvDetail";
 
 export async function loader({ request, params }: LoaderArgs) {
   console.log("det", request, "params:", params);
@@ -54,9 +54,7 @@ export const meta: V2_MetaFunction = ({ data }: MetaDataType) => {
 };
 
 export default function Details() {
-  const type = useLocation();
   const data = useLoaderData();
-  console.log(data, type);
 
   if (!data) {
     return (
@@ -72,11 +70,7 @@ export default function Details() {
 
   return (
     <>
-      {type.search === "movie" ? (
-        <DetailItem item={data} type="movie" />
-      ) : type.search === "tv" ? (
-        <DetailItem item={data} type="tv" />
-      ) : null}
+      {data.original_name ? <TvItem item={data} /> : <MovieItem item={data} />}
     </>
   );
 }
