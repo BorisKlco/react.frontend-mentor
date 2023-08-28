@@ -12,7 +12,10 @@ export const meta: V2_MetaFunction = () => {
 
 export async function loader({ request }: LoaderArgs) {
   const url = new URL(request.url);
-  const type = url.searchParams.get("type") ?? "all";
+  let type = url.searchParams.get("type");
+  if (type != "movie" && type != "tv") {
+    type = "all";
+  }
   const req = await fetch(
     `https://api.themoviedb.org/3/trending/${type}/day?language=en-US`,
     {
@@ -24,11 +27,27 @@ export async function loader({ request }: LoaderArgs) {
     }
   );
 
+  if (!req.ok) {
+    return null;
+  }
+
   return json(await req.json());
 }
 
 export default function Index() {
   const data = useLoaderData();
+
+  if (!data) {
+    return (
+      <>
+        <div className="grid place-content-center h-full">
+          <h1 className="font-bold text-3xl text-white">
+            Error while loading. Try again...
+          </h1>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
