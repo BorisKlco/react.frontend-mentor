@@ -1,0 +1,64 @@
+import { V2_MetaFunction, LoaderArgs, json } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+
+export async function loader({ request, params }: LoaderArgs) {
+  console.log("det", request, "params:", params);
+  const url = new URL(request.url);
+  const type = url.searchParams.get("type");
+  if (type != "movie" && type != "tv") {
+    return null;
+  }
+  const req = await fetch(
+    `https://api.themoviedb.org/3/${type}/${params.id}?language=en-US`,
+    {
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NmIxMjczZjIwMTA0ZGMyNGJmZDZkZGRkYTMwMjI5MCIsInN1YiI6IjY0ZWI4NzI4YzNjODkxMDEzYWIyZjQ2MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PDdWxlFxacH9WkJJtp7BJwXZJRl7LTrrY8eBGBU0lsM",
+      },
+    }
+  );
+
+  if (!req.ok) {
+    return null;
+  }
+
+  return json(await req.json());
+}
+
+interface MetaDataType {
+  data: {
+    original_title?: string;
+    name?: string;
+  };
+}
+
+export const meta: V2_MetaFunction = ({ data }: MetaDataType) => {
+  let title = data.original_title ?? data.name;
+  if (!title) {
+    title = "Generic Title";
+  }
+
+  return [
+    { title: title },
+    { name: "description", content: "Movies/TV gallery" },
+  ];
+};
+
+export default function Details() {
+  const data = useLoaderData();
+  console.log(data);
+
+  if (!data) {
+    return (
+      <>
+        <div className="grid place-content-center h-full">
+          <h1 className="font-bold text-3xl text-white">
+            <Link to={`/`}>Error while loading. Try again...</Link>
+          </h1>
+        </div>
+      </>
+    );
+  }
+  return "Details";
+}

@@ -1,12 +1,19 @@
 import { LoaderArgs, V2_MetaFunction, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import Item from "~/components/item";
 import { ItemType } from "~/helpers";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: V2_MetaFunction = ({ location }) => {
+  let locationTitle = "Movie/TV gallery";
+  if (location.search === "?type=movie") {
+    locationTitle = "Movies gallery";
+  } else if (location.search === "?type=tv") {
+    locationTitle = "TV Shows gallery";
+  }
+
   return [
-    { title: "Entertainment web app" },
-    { name: "description", content: "Movies gallery" },
+    { title: locationTitle },
+    { name: "description", content: "Movies/TV gallery" },
   ];
 };
 
@@ -42,7 +49,7 @@ export default function Index() {
       <>
         <div className="grid place-content-center h-full">
           <h1 className="font-bold text-3xl text-white">
-            Error while loading. Try again...
+            <Link to={`/`}>Error while loading. Try again...</Link>
           </h1>
         </div>
       </>
@@ -53,7 +60,14 @@ export default function Index() {
     <>
       <div className="flex flex-wrap gap-8 justify-center">
         {data.results.map((item: ItemType) => (
-          <Item key={item.id} item={item} />
+          <Link
+            key={item.id}
+            to={`detail/${item.id}?type=${
+              item.media_type == "movie" ? "movie" : "tv"
+            }`}
+          >
+            <Item item={item} />
+          </Link>
         ))}
       </div>
     </>
