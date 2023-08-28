@@ -34,9 +34,15 @@ interface MetaDataType {
 }
 
 export const meta: V2_MetaFunction = ({ data }: MetaDataType) => {
-  let title = data.original_title ?? data.name;
-  if (!title) {
-    title = "Generic Title";
+  let title = "Generic Title";
+  try {
+    if (data.original_title) {
+      title = data.original_title;
+    } else if (data.name) {
+      title = data.name;
+    }
+  } catch (error) {
+    title = "Sorry, something wrong!";
   }
 
   return [
