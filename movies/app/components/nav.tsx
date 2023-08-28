@@ -4,9 +4,10 @@ import { TiThSmall } from "react-icons/ti";
 import { TbMovie } from "react-icons/tb";
 import { PiTelevisionBold } from "react-icons/pi";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
-import { NavLink } from "@remix-run/react";
+import { Link, useSearchParams } from "@remix-run/react";
 
 export default function Navbar({ children }: { children: ReactNode }) {
+  const searchParams = useSearchParams();
   return (
     <div className="flex h-full bg-slate-950 overflow-auto">
       <div className="flex flex-col w-full xl:flex-row">
@@ -15,27 +16,27 @@ export default function Navbar({ children }: { children: ReactNode }) {
             <RiMovie2Fill className="h-[54px] w-full xl:mb-6" />
           </p>
           <div className="flex xl:flex-col xl:gap-6 gap-3 items-center text-white h-full xl:h-auto ">
-            <NavLink
-              to="/"
-              prefetch="intent"
-              className={({ isActive }) => (isActive ? "text-green-400" : "")}
-            >
-              <TiThSmall className="h-full w-[32px] hover:text-green-400 transition hover:scale-125" />
-            </NavLink>
-            <NavLink
-              prefetch="intent"
-              to="/movies"
-              className={({ isActive }) => (isActive ? "text-red-600" : "")}
-            >
-              <TbMovie className="h-full w-[32px] hover:text-red-600 transition hover:scale-125" />
-            </NavLink>
-            <NavLink
-              to="/tv"
-              prefetch="intent"
-              className={({ isActive }) => (isActive ? "text-pink-600" : "")}
-            >
-              <PiTelevisionBold className="h-full w-[32px] hover:text-pink-600 transition hover:scale-125" />
-            </NavLink>
+            <Link to="/">
+              <TiThSmall
+                className={`h-full w-[32px] hover:text-green-400 transition hover:scale-125 ${
+                  !searchParams[0].get("type") && "text-green-400"
+                }`}
+              />
+            </Link>
+            <Link to="?type=movie">
+              <TbMovie
+                className={`h-full w-[32px] hover:text-red-600 transition hover:scale-125 ${
+                  searchParams[0].get("type") == "movie" && "text-red-600"
+                }`}
+              />
+            </Link>
+            <Link to="?type=tv">
+              <PiTelevisionBold
+                className={`h-full w-[32px] hover:text-pink-600 transition hover:scale-125 ${
+                  searchParams[0].get("type") == "tv" && "text-pink-600"
+                }`}
+              />
+            </Link>
             <BsFillBookmarkHeartFill className="h-full w-[32px] hover:text-sky-600 transition hover:scale-125" />
           </div>
           <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">

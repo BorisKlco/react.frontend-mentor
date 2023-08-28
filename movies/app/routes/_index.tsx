@@ -10,9 +10,11 @@ export const meta: V2_MetaFunction = () => {
   ];
 };
 
-export async function loader({}: LoaderArgs) {
-  const url = await fetch(
-    "https://api.themoviedb.org/3/trending/all/day?language=en-US",
+export async function loader({ request }: LoaderArgs) {
+  const url = new URL(request.url);
+  const type = url.searchParams.get("type") ?? "all";
+  const req = await fetch(
+    `https://api.themoviedb.org/3/trending/${type}/day?language=en-US`,
     {
       headers: {
         accept: "application/json",
@@ -22,7 +24,7 @@ export async function loader({}: LoaderArgs) {
     }
   );
 
-  return json(await url.json());
+  return json(await req.json());
 }
 
 export default function Index() {
