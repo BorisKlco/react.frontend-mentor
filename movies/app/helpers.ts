@@ -1,6 +1,7 @@
-export interface MovieType {
+export interface ItemType {
   id: number;
   title: string;
+  name?: string;
   original_language: string;
   original_title?: string;
   overview: string;
@@ -16,36 +17,27 @@ export interface MovieType {
 }
 
 export const GenreColors = [
-  "#0FCFD6",
-  "#5BB07B",
-  "#9560A8",
-  "#E05F50",
-  "#D9A5AA",
-  "#DAC8F7",
-  "#D9D8A9",
-  "#FFAAA5",
-  "#DCEDC1",
-  "#A8E6CF",
-  "#F8B195",
-  "#F67280",
-  "#C06C84",
-  "#6C5B7B",
-  "#355C7D",
-  "#0FCFD6",
-  "#5BB07B",
-  "#9560A8",
-  "#E05F50",
-  "#D9A5AA",
-  "#DAC8F7",
-  "#D9D8A9",
-  "#FFAAA5",
-  "#DCEDC1",
-  "#A8E6CF",
-  "#F8B195",
-  "#F67280",
-  "#C06C84",
-  "#6C5B7B",
-  "#355C7D",
+  "bg-sky-600",
+  "bg-emerald-600",
+  "bg-fuchsia-600",
+  "bg-red-600",
+  "bg-amber-600",
+  "bg-green-600",
+  "bg-orange-600",
+  "bg-rose-600",
+  "bg-gray-600",
+  "bg-slate-600",
+  "bg-zinc-600",
+  "bg-neutral-600",
+  "bg-stone-600",
+  "bg-yellow-600",
+  "bg-teal-600",
+  "bg-cyan-600",
+  "bg-blue-600",
+  "bg-indigo-600",
+  "bg-violet-600",
+  "bg-purple-600",
+  "bg-pink-600",
 ];
 
 export const Genres = [
