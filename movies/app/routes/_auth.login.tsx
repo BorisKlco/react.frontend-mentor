@@ -20,7 +20,7 @@ export async function loader({ request }: LoaderArgs) {
       console.log("LOGGED1", logged);
       return redirect("/");
     } catch (error) {
-      console.log("COOKIE DB ERROR");
+      console.log("COOKIE NOT IN DB");
       return null;
     }
   }
@@ -41,7 +41,7 @@ export async function action({ request }: ActionArgs) {
     });
 
     if (login.psw === body.get("psw")) {
-      const newCookie = String(String(Math.random()) + new Date());
+      const newCookie = String(Math.random());
       await db.user.update({
         where: {
           user: login.user,
