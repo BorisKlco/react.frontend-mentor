@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npx prisma db push
+
 RUN npm run build 
 
 ENV NODE_ENV=production

@@ -70,6 +70,7 @@ export default function Login() {
     <>
       <div className="grid place-items-start justify-center sm:place-content-center h-full">
         <div className="py-4 px-6 bg-slate-400 h-auto w-auto">
+          <h1 className="mt-4 mb-6 text-xl font-bold text-center">Log In</h1>
           <Form
             method="post"
             action="/login"

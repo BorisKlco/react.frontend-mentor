@@ -1,26 +1,33 @@
-import { ActionArgs, json } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { ActionArgs, redirect } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
 
-  const reg = await db.user.create({
-    data: {
-      user: body.get("name") as string,
-      psw: body.get("psw") as string,
-      cookie: "123",
-    },
-  });
+  try {
+    await db.user.create({
+      data: {
+        user: body.get("name") as string,
+        psw: body.get("psw") as string,
+        cookie: "",
+      },
+    });
+  } catch (error) {
+    return { error: "User exist" };
+  }
 
-  return json({ reg });
+  return redirect("/login");
 }
 
 export default function Register() {
+  const resp = useActionData();
+  console.log("resp", resp);
   return (
     <>
       <div className="grid place-items-start justify-center sm:place-content-center h-full">
         <div className="py-4 px-6 bg-slate-400 h-auto w-auto">
+          <h1 className="mt-4 mb-6 text-xl font-bold text-center">Register</h1>
           <Form
             method="post"
             action="/register"
@@ -32,6 +39,10 @@ export default function Register() {
             <label htmlFor="password" className="w-full flex justify-between">
               Psw <input type="password" name="psw" />
             </label>
+
+            {resp ? (
+              <span className="text-red-900 text-semibold">{resp.error}</span>
+            ) : null}
 
             <button className="mt-4 py-2 px-4 border border-black">
               Register
