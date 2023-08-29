@@ -4,7 +4,6 @@ import MovieItem from "~/components/movieDetail";
 import TvItem from "~/components/tvDetail";
 
 export async function loader({ request, params }: LoaderArgs) {
-  console.log("det", request, "params:", params);
   const url = new URL(request.url);
   const type = url.searchParams.get("type");
   if (type != "movie" && type != "tv") {

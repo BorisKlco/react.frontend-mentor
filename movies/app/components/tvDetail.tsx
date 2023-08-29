@@ -6,7 +6,6 @@ type TvProp = {
 
 export default function TvItem({ item }: TvProp) {
   const colors = GenreColors;
-  console.log(item);
   return (
     <div className="w-full px-4 xl:py-2 h-full mx-auto ">
       <div

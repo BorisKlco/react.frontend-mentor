@@ -60,14 +60,7 @@ export default function Index() {
     <>
       <div className="flex flex-wrap gap-8 justify-center">
         {data.results.map((item: ItemType) => (
-          <Link
-            key={item.id}
-            to={`detail/${item.id}?type=${
-              item.media_type == "movie" ? "movie" : "tv"
-            }`}
-          >
-            <Item item={item} />
-          </Link>
+          <Item key={item.id} item={item} />
         ))}
       </div>
     </>
