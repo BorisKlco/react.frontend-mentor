@@ -41,7 +41,7 @@ export default function Navbar({ children }: { children: ReactNode }) {
           </div>
           <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">
             <img
-              src="https://robohash.org/SCJ.png?set=set4"
+              src="/SCJ.webp"
               alt="profile"
               className="m-auto object-center  transition grayscale-[50%] group-hover:grayscale-0"
             />
