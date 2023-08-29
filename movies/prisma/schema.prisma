@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id       Int       @id @default(autoincrement())
-  user     String
+  user     String    @unique
   psw      String
   cookie   String
   Favorite Favorite?
