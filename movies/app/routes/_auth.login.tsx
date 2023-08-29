@@ -1,10 +1,38 @@
-import { ActionArgs } from "@remix-run/node";
+import { ActionArgs, LoaderArgs, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 
 import { db } from "~/utils/db.server";
+import { userCookie } from "~/cookie.server";
+
+export async function loader({ request }: LoaderArgs) {
+  const cookieHeader = request.headers.get("Cookie");
+  const cookie = (await userCookie.parse(cookieHeader)) || {};
+  console.log("WE HIT LOADET --> COOKIE:", cookie.login);
+
+  if (cookie.login) {
+    console.log("COOKIE EXIST, GO NEXT");
+    try {
+      const logged = await db.user.findFirstOrThrow({
+        where: {
+          cookie: cookie.login,
+        },
+      });
+      console.log("LOGGED1", logged);
+      return redirect("/");
+    } catch (error) {
+      console.log("COOKIE DB ERROR");
+      return null;
+    }
+  }
+  console.log("COOKIE DOESNT EXIT");
+  return null;
+}
 
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
+  const cookieHeader = request.headers.get("Cookie");
+  const cookie = (await userCookie.parse(cookieHeader)) || {};
+
   try {
     const login = await db.user.findUniqueOrThrow({
       where: {
@@ -13,7 +41,21 @@ export async function action({ request }: ActionArgs) {
     });
 
     if (login.psw === body.get("psw")) {
-      return { status: "ok" };
+      const newCookie = String(String(Math.random()) + new Date());
+      await db.user.update({
+        where: {
+          user: login.user,
+        },
+        data: {
+          cookie: newCookie,
+        },
+      });
+      cookie.login = newCookie;
+      return redirect("/", {
+        headers: {
+          "Set-Cookie": await userCookie.serialize(cookie),
+        },
+      });
     }
   } catch (error) {
     return { error: "Wrong username" };
