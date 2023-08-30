@@ -5,45 +5,16 @@ import { TbMovie } from "react-icons/tb";
 import { PiTelevisionBold } from "react-icons/pi";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { IoIosLogIn } from "react-icons/io";
-import {
-  Link,
-  useActionData,
-  useLoaderData,
-  useSearchParams,
-} from "@remix-run/react";
+import { Link, useSearchParams } from "@remix-run/react";
 
-import { db } from "~/utils/db.server";
-import { userCookie } from "~/cookie.server";
-import { LoaderArgs } from "@remix-run/node";
-
-export async function loader({ request }: LoaderArgs) {
-  const cookieHeader = request.headers.get("Cookie");
-  const cookie = (await userCookie.parse(cookieHeader)) || {};
-  console.log("loader", cookieHeader, cookie);
-
-  if (cookie.login) {
-    console.log("COOKIE EXIST, GO NEXT");
-    try {
-      await db.user.findFirstOrThrow({
-        where: {
-          cookie: cookie.login,
-        },
-      });
-      return { state: "logged" };
-    } catch (error) {
-      console.log("COOKIE NOT IN DB");
-      return null;
-    }
-  }
-  console.log("COOKIE DOESNT EXIT");
-  return null;
-}
-
-export default function Navbar({ children }: { children: ReactNode }) {
-  const loader = useLoaderData();
-  const cookie = useActionData();
+export default function Navbar({
+  children,
+  cookie,
+}: {
+  children: ReactNode;
+  cookie: boolean;
+}) {
   const searchParams = useSearchParams();
-  console.log("nav", cookie, loader);
   return (
     <div className="flex h-full bg-slate-950 overflow-auto">
       <div className="flex flex-col w-full xl:flex-row">
