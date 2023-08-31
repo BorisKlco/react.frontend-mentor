@@ -97,8 +97,8 @@ export default function App() {
                 <BsFillBookmarkHeartFill className="h-full w-[32px] hover:text-sky-600 transition hover:scale-125" />
               </div>
               {currentUser ? (
-                <Form method="post">
-                  <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">
+                <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">
+                  <Form method="post">
                     <button>
                       <img
                         src="/SCJ.webp"
@@ -106,8 +106,8 @@ export default function App() {
                         className="m-auto object-center  transition grayscale-[50%] group-hover:grayscale-0"
                       />
                     </button>
-                  </div>
-                </Form>
+                  </Form>
+                </div>
               ) : (
                 <Link to="/login" className="xl:mt-auto xl:mb-0">
                   <IoIosLogIn className="text-white w-full h-full" />
