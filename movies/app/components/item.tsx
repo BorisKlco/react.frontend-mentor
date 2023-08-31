@@ -11,7 +11,7 @@ export default function Item({ item }: { item: ItemType }) {
         <BsFillBookmarkHeartFill className="h-5 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6" />
       </div>
       <Link
-        to={`detail/${item.id}?type=${
+        to={`/detail/${item.id}?type=${
           item.media_type == "movie" ? "movie" : "tv"
         }`}
       >
