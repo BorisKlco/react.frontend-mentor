@@ -1,7 +1,7 @@
-import { LoaderArgs, V2_MetaFunction, json } from "@remix-run/node";
+import { type LoaderArgs, type V2_MetaFunction, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import Item from "~/components/item";
-import { ItemType } from "~/helpers";
+import { type ItemType } from "~/helpers";
 
 export const meta: V2_MetaFunction = ({ location }) => {
   let locationTitle = "Movie/TV gallery";

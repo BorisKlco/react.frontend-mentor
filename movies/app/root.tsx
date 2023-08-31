@@ -1,4 +1,10 @@
-import type { LinksFunction, LoaderArgs } from "@remix-run/node";
+import {
+  redirect,
+  type LinksFunction,
+  type LoaderArgs,
+  json,
+  type ActionArgs,
+} from "@remix-run/node";
 import { RiMovie2Fill } from "react-icons/ri";
 import { TiThSmall } from "react-icons/ti";
 import { TbMovie } from "react-icons/tb";
@@ -7,6 +13,7 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { IoIosLogIn } from "react-icons/io";
 
 import {
+  Form,
   Link,
   Links,
   LiveReload,
@@ -19,34 +26,31 @@ import {
 } from "@remix-run/react";
 import stylesheet from "~/tailwind.css";
 
-import { db } from "~/utils/db.server";
-import { userCookie } from "~/cookie.server";
+import { getSession, destroySession } from "~/sessions";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
 
 export async function loader({ request }: LoaderArgs) {
-  const cookieHeader = request.headers.get("Cookie");
-  const cookie = (await userCookie.parse(cookieHeader)) || {};
+  const session = await getSession(request.headers.get("Cookie"));
 
-  if (cookie.login) {
-    try {
-      await db.user.findFirstOrThrow({
-        where: {
-          cookie: cookie.login,
-        },
-      });
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-  return false;
+  const currentUser = { currentUser: session.get("userId") };
+
+  return json(currentUser);
 }
 
+export const action = async ({ request }: ActionArgs) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  return redirect("/login", {
+    headers: {
+      "Set-Cookie": await destroySession(session),
+    },
+  });
+};
+
 export default function App() {
-  const cookie = useLoaderData();
+  const { currentUser } = useLoaderData<typeof loader>();
   return (
     <html lang="en">
       <head>
@@ -92,14 +96,18 @@ export default function App() {
                 </NavLink>
                 <BsFillBookmarkHeartFill className="h-full w-[32px] hover:text-sky-600 transition hover:scale-125" />
               </div>
-              {cookie ? (
-                <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">
-                  <img
-                    src="/SCJ.webp"
-                    alt="profile"
-                    className="m-auto object-center  transition grayscale-[50%] group-hover:grayscale-0"
-                  />
-                </div>
+              {currentUser ? (
+                <Form method="post">
+                  <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">
+                    <button>
+                      <img
+                        src="/SCJ.webp"
+                        alt="profile"
+                        className="m-auto object-center  transition grayscale-[50%] group-hover:grayscale-0"
+                      />
+                    </button>
+                  </div>
+                </Form>
               ) : (
                 <Link to="/login" className="xl:mt-auto xl:mb-0">
                   <IoIosLogIn className="text-white w-full h-full" />

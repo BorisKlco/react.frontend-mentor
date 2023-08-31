@@ -1,37 +1,30 @@
-import { ActionArgs, LoaderArgs, redirect } from "@remix-run/node";
-import { Form, useActionData } from "@remix-run/react";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { redirect, json } from "@remix-run/node";
+import { Form, useLoaderData } from "@remix-run/react";
 
 import { db } from "~/utils/db.server";
-import { userCookie } from "~/cookie.server";
+import { getSession, commitSession } from "~/sessions";
 
 export async function loader({ request }: LoaderArgs) {
-  const cookieHeader = request.headers.get("Cookie");
-  const cookie = (await userCookie.parse(cookieHeader)) || {};
-  console.log("WE HIT LOADET --> COOKIE:", cookie.login);
+  const session = await getSession(request.headers.get("Cookie"));
 
-  if (cookie.login) {
-    console.log("COOKIE EXIST, GO NEXT");
-    try {
-      const logged = await db.user.findFirstOrThrow({
-        where: {
-          cookie: cookie.login,
-        },
-      });
-      console.log("LOGGED1", logged);
-      return redirect("/");
-    } catch (error) {
-      console.log("COOKIE NOT IN DB");
-      return null;
-    }
-  }
-  console.log("COOKIE DOESNT EXIT");
-  return null;
+  // if (!session.has("userId")) {
+  //   console.log("redirect from /login to /");
+  //   return redirect("/");
+  // }
+
+  const data = { error: session.get("error") };
+
+  return json(data, {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 }
 
 export async function action({ request }: ActionArgs) {
   const body = await request.formData();
-  const cookieHeader = request.headers.get("Cookie");
-  const cookie = (await userCookie.parse(cookieHeader)) || {};
+  const session = await getSession(request.headers.get("Cookie"));
 
   try {
     const login = await db.user.findUniqueOrThrow({
@@ -41,31 +34,31 @@ export async function action({ request }: ActionArgs) {
     });
 
     if (login.psw === body.get("psw")) {
-      const newCookie = String(Math.random());
-      await db.user.update({
-        where: {
-          user: login.user,
-        },
-        data: {
-          cookie: newCookie,
-        },
-      });
-      cookie.login = newCookie;
+      session.set("userId", login.user);
       return redirect("/", {
         headers: {
-          "Set-Cookie": await userCookie.serialize(cookie),
+          "Set-Cookie": await commitSession(session),
         },
       });
     }
   } catch (error) {
-    return { error: "Wrong username" };
+    session.flash("error", "Invalid username");
+    return redirect("/login", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
   }
-
-  return { error: "Wrong password" };
+  session.flash("error", "Invalid password");
+  return redirect("/login", {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
+  });
 }
 
 export default function Login() {
-  const resp = useActionData();
+  const { error } = useLoaderData<typeof loader>();
   return (
     <>
       <div className="grid place-items-start justify-center sm:place-content-center h-full">
@@ -83,8 +76,8 @@ export default function Login() {
             <label htmlFor="password" className="w-full flex justify-between">
               Psw <input type="password" name="psw" />
             </label>
-            {resp && resp.error ? (
-              <span className="text-red-900 text-semibold">{resp.error}</span>
+            {error ? (
+              <span className="text-red-900 text-semibold">{error}</span>
             ) : null}
 
             <button className="mt-4 py-2 px-4 border border-black">

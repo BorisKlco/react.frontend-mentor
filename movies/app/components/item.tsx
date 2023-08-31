@@ -1,6 +1,7 @@
 import { Link } from "@remix-run/react";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
-import { GenreColors, Genres, ItemType } from "~/helpers";
+import { GenreColors, Genres } from "~/helpers";
+import type { ItemType } from "~/helpers";
 
 export default function Item({ item }: { item: ItemType }) {
   const genreID = Genres;
