@@ -1,4 +1,4 @@
-import { V2_MetaFunction, LoaderArgs, json } from "@remix-run/node";
+import { type V2_MetaFunction, type LoaderArgs, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import MovieItem from "~/components/movieDetail";
 import TvItem from "~/components/tvDetail";
@@ -25,6 +25,11 @@ export async function loader({ request, params }: LoaderArgs) {
   }
 
   return json(await req.json());
+}
+
+export async function action() {
+  console.log("we hit action from book item");
+  return null;
 }
 
 interface MetaDataType {

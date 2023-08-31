@@ -8,11 +8,6 @@ import { getSession, commitSession } from "~/sessions";
 export async function loader({ request }: LoaderArgs) {
   const session = await getSession(request.headers.get("Cookie"));
 
-  // if (!session.has("userId")) {
-  //   console.log("redirect from /login to /");
-  //   return redirect("/");
-  // }
-
   const data = { error: session.get("error") };
 
   return json(data, {

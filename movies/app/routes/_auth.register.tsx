@@ -1,4 +1,4 @@
-import { ActionArgs, redirect } from "@remix-run/node";
+import { type ActionArgs, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { db } from "~/utils/db.server";
 
@@ -22,7 +22,6 @@ export async function action({ request }: ActionArgs) {
 
 export default function Register() {
   const resp = useActionData();
-  console.log("resp", resp);
   return (
     <>
       <div className="grid place-items-start justify-center sm:place-content-center h-full">

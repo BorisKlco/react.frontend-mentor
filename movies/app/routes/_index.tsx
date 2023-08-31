@@ -3,13 +3,8 @@ import { Link, useLoaderData } from "@remix-run/react";
 import Item from "~/components/item";
 import { type ItemType } from "~/helpers";
 
-export const meta: V2_MetaFunction = ({ location }) => {
+export const meta: V2_MetaFunction = () => {
   let locationTitle = "Movie/TV gallery";
-  if (location.search === "?type=movie") {
-    locationTitle = "Movies gallery";
-  } else if (location.search === "?type=tv") {
-    locationTitle = "TV Shows gallery";
-  }
 
   return [
     { title: locationTitle },
@@ -18,13 +13,8 @@ export const meta: V2_MetaFunction = ({ location }) => {
 };
 
 export async function loader({ request }: LoaderArgs) {
-  const url = new URL(request.url);
-  let type = url.searchParams.get("type");
-  if (type != "movie" && type != "tv") {
-    type = "all";
-  }
   const req = await fetch(
-    `https://api.themoviedb.org/3/trending/${type}/day?language=en-US`,
+    `https://api.themoviedb.org/3/trending/all/day?language=en-US`,
     {
       headers: {
         accept: "application/json",
