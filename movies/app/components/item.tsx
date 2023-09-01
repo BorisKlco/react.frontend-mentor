@@ -21,8 +21,8 @@ export default function Item({
           <input type="hidden" name="id" value={item.id} />
           <input type="hidden" name="type" value={item.media_type} />
           <BsFillBookmarkHeartFill
-            className={`h-5 w-autotransition text-white group-hover/fav:text-sky-600 group-hover/fav:rotate-6 ${
-              bookmark && "text-green-600"
+            className={`h-5 w-autotransition group-hover/fav:text-sky-600 group-hover/fav:rotate-6 ${
+              bookmark ? "text-green-600" : "text-white"
             }`}
           />
         </button>
