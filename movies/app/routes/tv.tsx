@@ -45,15 +45,13 @@ export async function loader({ request }: LoaderArgs) {
     favorites = [{}];
   }
 
-  const test = await req.json();
+  const resp = await req.json();
 
-  return json({ favorites: favorites, items: test });
+  return json({ favorites: favorites, items: resp });
 }
 
 export default function Index() {
   const { favorites, items } = useLoaderData();
-
-  console.log("item", favorites, items);
 
   return (
     <>

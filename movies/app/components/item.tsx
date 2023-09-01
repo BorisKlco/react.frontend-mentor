@@ -18,6 +18,7 @@ export default function Item({
       <Form method="post" action="/bookmarks/add">
         <button className="group/fav absolute right-3 top-3 rounded-full h-12 aspect-square bg-black/40 z-10 grid place-content-center">
           <input type="hidden" name="path" value={path.pathname} />
+          <input type="hidden" name="param" value={path.search} />
           <input type="hidden" name="id" value={item.id} />
           <input type="hidden" name="type" value={item.media_type} />
           <BsFillBookmarkHeartFill

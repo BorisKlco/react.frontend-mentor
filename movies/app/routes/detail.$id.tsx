@@ -27,11 +27,6 @@ export async function loader({ request, params }: LoaderArgs) {
   return json(await req.json());
 }
 
-export async function action() {
-  console.log("we hit action from book item");
-  return null;
-}
-
 interface MetaDataType {
   data: {
     original_title?: string;

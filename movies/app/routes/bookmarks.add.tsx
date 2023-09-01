@@ -28,7 +28,7 @@ export async function action({ request }: any) {
 
     console.log("Removing existing Bookmark");
 
-    return redirect(body.get("path"));
+    return redirect(body.get("path") + body.get("param"));
   }
 
   await db.favorite.create({
@@ -40,7 +40,7 @@ export async function action({ request }: any) {
   });
 
   console.log("Adding Bookmark");
-  return redirect(body.get("path"));
+  return redirect(body.get("path") + body.get("param"));
 }
 
 export default function Add() {
