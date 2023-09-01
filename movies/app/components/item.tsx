@@ -1,16 +1,23 @@
-import { Link } from "@remix-run/react";
+import { Form, Link, useLocation } from "@remix-run/react";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { GenreColors, Genres } from "~/helpers";
 import type { ItemType } from "~/helpers";
 
 export default function Item({ item }: { item: ItemType }) {
+  const path = useLocation();
   const genreID = Genres;
   const colors = GenreColors;
+  console.log(item);
   return (
     <div key={item.id} className="group relative overflow-hidden rounded-md">
-      <div className="group/fav absolute right-3 top-3 rounded-full h-12 aspect-square bg-black/40 z-10 grid place-content-center">
-        <BsFillBookmarkHeartFill className="h-5 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6" />
-      </div>
+      <Form method="post" action="/bookmarks/add">
+        <button className="group/fav absolute right-3 top-3 rounded-full h-12 aspect-square bg-black/40 z-10 grid place-content-center">
+          <input type="hidden" name="path" value={path.pathname} />
+          <input type="hidden" name="id" value={item.id} />
+          <input type="hidden" name="type" value={item.media_type} />
+          <BsFillBookmarkHeartFill className="h-5 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6" />
+        </button>
+      </Form>
       <Link
         to={`/detail/${item.id}?type=${
           item.media_type == "movie" ? "movie" : "tv"

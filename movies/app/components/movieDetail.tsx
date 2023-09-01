@@ -1,4 +1,4 @@
-import { GenreColors, MovieItemProp } from "~/helpers";
+import { GenreColors, type MovieItemProp } from "~/helpers";
 import { LiaImdb } from "react-icons/lia";
 import { Link } from "@remix-run/react";
 
