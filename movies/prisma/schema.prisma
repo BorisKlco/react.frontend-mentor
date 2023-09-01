@@ -11,18 +11,16 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  user     String    @unique
-  psw      String
-  cookie   String
-  Favorite Favorite?
+  id        String     @id @default(uuid())
+  name      String     @unique
+  psw       String
+  Favorites Favorite[]
 }
 
 model Favorite {
   id     Int    @id @default(autoincrement())
   itemId Int
   type   String
-  json   String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+  name   String
+  user   User   @relation(fields: [name], references: [name])
 }

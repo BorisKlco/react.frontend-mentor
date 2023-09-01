@@ -3,11 +3,16 @@ import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { GenreColors, Genres } from "~/helpers";
 import type { ItemType } from "~/helpers";
 
-export default function Item({ item }: { item: ItemType }) {
+export default function Item({
+  item,
+  bookmark,
+}: {
+  item: ItemType;
+  bookmark: boolean;
+}) {
   const path = useLocation();
   const genreID = Genres;
   const colors = GenreColors;
-  console.log(item);
   return (
     <div key={item.id} className="group relative overflow-hidden rounded-md">
       <Form method="post" action="/bookmarks/add">
@@ -15,7 +20,11 @@ export default function Item({ item }: { item: ItemType }) {
           <input type="hidden" name="path" value={path.pathname} />
           <input type="hidden" name="id" value={item.id} />
           <input type="hidden" name="type" value={item.media_type} />
-          <BsFillBookmarkHeartFill className="h-5 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6" />
+          <BsFillBookmarkHeartFill
+            className={`h-5 w-auto text-white transition group-hover/fav:text-sky-600 group-hover/fav:rotate-6 ${
+              bookmark ? "text-sky-600" : ""
+            }`}
+          />
         </button>
       </Form>
       <Link
