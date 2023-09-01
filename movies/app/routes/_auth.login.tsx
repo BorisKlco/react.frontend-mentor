@@ -65,11 +65,23 @@ export default function Login() {
             className="flex flex-col gap-4 w-[18rem]"
           >
             <label htmlFor="name" className="w-full flex justify-between">
-              Name <input type="text" name="name" className="text-black" />
+              Name{" "}
+              <input
+                type="text"
+                name="name"
+                className="text-black"
+                placeholder="test"
+              />
             </label>
 
             <label htmlFor="password" className="w-full flex justify-between">
-              Psw <input type="password" name="psw" className="text-black" />
+              Psw{" "}
+              <input
+                type="text"
+                name="psw"
+                className="text-black"
+                placeholder="test"
+              />
             </label>
             {error ? (
               <span className="text-red-900 text-semibold">{error}</span>

@@ -8,6 +8,7 @@ export interface ItemType {
   poster_path?: string;
   backdrop_path?: string;
   media_type: string;
+  genres?: { id: number; name: string }[];
   genre_ids: number[];
   popularity: number;
   release_date: string;

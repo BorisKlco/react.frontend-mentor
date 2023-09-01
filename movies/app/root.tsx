@@ -94,7 +94,15 @@ export default function App() {
                     />
                   )}
                 </NavLink>
-                <BsFillBookmarkHeartFill className="h-full w-[32px] hover:text-sky-600 transition hover:scale-125" />
+                <NavLink to="/bookmarks">
+                  {({ isActive }) => (
+                    <BsFillBookmarkHeartFill
+                      className={`h-full w-[32px] hover:text-sky-600 transition hover:scale-125 ${
+                        isActive ? "text-sky-600" : ""
+                      }`}
+                    />
+                  )}
+                </NavLink>
               </div>
               {currentUser ? (
                 <div className="group my-auto xl:mt-auto xl:mb-0 rounded-full aspect-square w-[48px] overflow-hidden outline hover:outline-white">

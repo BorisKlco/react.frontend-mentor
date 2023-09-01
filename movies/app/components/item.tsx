@@ -37,23 +37,39 @@ export default function Item({
             {item.title ?? item.name}
           </h1>
           <div className="min-[930px]:my-2 flex flex-wrap gap-2">
-            {item.genre_ids.map((genre, i) => (
-              <span
-                className={`py-[2px] px-[6px] rounded-md text-sm hidden min-[930px]:block font-semibold ${
-                  colors.length > i ? colors[i] : colors[i - colors.length]
-                }`}
-                key={genre}
-              >
-                <p className="text-white drop-shadow-[0px_0px_1px_rgba(0,0,0)]">
-                  {genreID.map((item: any) => {
-                    if (item.id == genre) {
-                      return item.name;
-                    }
-                    return null;
-                  })}
-                </p>
-              </span>
-            ))}
+            {item.genres
+              ? item.genres.map((genre, i) => (
+                  <span
+                    className={`py-[2px] px-[6px] rounded-md text-sm font-semibold ${
+                      colors.length > i ? colors[i] : colors[i - colors.length]
+                    }`}
+                    key={genre.id}
+                  >
+                    <p className="text-white drop-shadow-[0px_0px_1px_rgba(0,0,0)]">
+                      {genre.name}
+                    </p>
+                  </span>
+                ))
+              : null}
+            {item.genre_ids
+              ? item.genre_ids.map((genre, i) => (
+                  <span
+                    className={`py-[2px] px-[6px] rounded-md text-sm hidden min-[930px]:block font-semibold ${
+                      colors.length > i ? colors[i] : colors[i - colors.length]
+                    }`}
+                    key={genre}
+                  >
+                    <p className="text-white drop-shadow-[0px_0px_1px_rgba(0,0,0)]">
+                      {genreID.map((item: any) => {
+                        if (item.id == genre) {
+                          return item.name;
+                        }
+                        return null;
+                      })}
+                    </p>
+                  </span>
+                ))
+              : null}
           </div>
           <p className="text-white line-clamp-3 my-2">{item.overview}</p>
         </div>

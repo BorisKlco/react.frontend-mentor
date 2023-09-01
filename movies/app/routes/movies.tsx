@@ -7,7 +7,7 @@ import { db } from "~/utils/db.server";
 import { getSession } from "~/sessions";
 
 export const meta: V2_MetaFunction = () => {
-  let locationTitle = "Movie/TV gallery";
+  let locationTitle = "Movie gallery";
   return [
     { title: locationTitle },
     { name: "description", content: "Movies/TV gallery" },
