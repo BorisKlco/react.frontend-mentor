@@ -1,7 +1,9 @@
 import { type LoaderArgs, type V2_MetaFunction, json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import Item from "~/components/item";
 import { type ItemType } from "~/helpers";
+import { db } from "~/utils/db.server";
+import { getSession } from "~/sessions";
 
 export const meta: V2_MetaFunction = () => {
   let locationTitle = "Movie/TV gallery";
@@ -13,6 +15,8 @@ export const meta: V2_MetaFunction = () => {
 };
 
 export async function loader({ request }: LoaderArgs) {
+  const session = await getSession(request.headers.get("Cookie"));
+  let favorites;
   const req = await fetch(
     `https://api.themoviedb.org/3/trending/all/day?language=en-US`,
     {
@@ -28,30 +32,41 @@ export async function loader({ request }: LoaderArgs) {
     return null;
   }
 
-  return json(await req.json());
+  if (session.has("userId")) {
+    favorites = await db.favorite.findMany({
+      where: {
+        name: session.get("userId") as string,
+      },
+      select: {
+        itemId: true,
+      },
+    });
+  } else {
+    favorites = [{}];
+  }
+
+  const test = await req.json();
+
+  return json({ favorites: favorites, items: test });
 }
 
 export default function Index() {
-  const data = useLoaderData();
-
-  if (!data) {
-    return (
-      <>
-        <div className="grid place-content-center h-full">
-          <h1 className="font-bold text-3xl text-white">
-            <Link to={`/`}>Error while loading. Try again...</Link>
-          </h1>
-        </div>
-      </>
-    );
-  }
+  const { favorites, items } = useLoaderData();
 
   return (
     <>
       <div className="flex flex-wrap gap-8 justify-center">
-        {data.results.map((item: ItemType) => (
-          <Item key={item.id} item={item} />
-        ))}
+        {items.results.map((item: ItemType) => {
+          if (
+            favorites.some(
+              (favorite: { itemId: number }) => favorite.itemId === item.id
+            )
+          ) {
+            return <Item key={item.id} item={item} bookmark={true} />;
+          } else {
+            return <Item key={item.id} item={item} bookmark={false} />;
+          }
+        })}
       </div>
     </>
   );

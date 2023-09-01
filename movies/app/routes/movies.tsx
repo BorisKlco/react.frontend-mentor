@@ -41,6 +41,8 @@ export async function loader({ request }: LoaderArgs) {
         itemId: true,
       },
     });
+  } else {
+    favorites = [{}];
   }
 
   const test = await req.json();
@@ -50,7 +52,6 @@ export async function loader({ request }: LoaderArgs) {
 
 export default function Index() {
   const { favorites, items } = useLoaderData();
-  console.log(favorites, items);
 
   return (
     <>
