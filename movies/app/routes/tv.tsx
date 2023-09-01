@@ -53,6 +53,8 @@ export async function loader({ request }: LoaderArgs) {
 export default function Index() {
   const { favorites, items } = useLoaderData();
 
+  console.log("item", favorites, items);
+
   return (
     <>
       <div className="flex flex-wrap gap-8 justify-center">

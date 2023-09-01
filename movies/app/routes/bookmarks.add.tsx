@@ -8,7 +8,7 @@ export async function action({ request }: any) {
 
   if (!session.has("userId")) {
     console.log("missing cookie");
-    return redirect(body.get("path"));
+    return redirect("/login");
   }
 
   const bookmarkExist = await db.favorite.findFirst({
@@ -26,6 +26,8 @@ export async function action({ request }: any) {
       },
     });
 
+    console.log("Removing existing Bookmark");
+
     return redirect(body.get("path"));
   }
 
@@ -37,6 +39,7 @@ export async function action({ request }: any) {
     },
   });
 
+  console.log("Adding Bookmark");
   return redirect(body.get("path"));
 }
 
